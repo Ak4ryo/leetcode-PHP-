@@ -1,0 +1,15 @@
+function twoSum($nums, $target) {
+    // Outer loop to iterate through each element in the nums array
+    for ($i = 0; $i < count($nums); $i++) {
+        // Inner loop to iterate through the elements following the current element in the outer loop
+        for ($j = $i + 1; $j < count($nums); $j++) {
+            // Check if the sum of the elements at indices $i and $j equals the target
+            if ($nums[$i] + $nums[$j] == $target) {
+                // If the sum is equal to the target, return the indices as an array
+                return [$i, $j];
+            }
+        }
+    }
+    // If no pair is found that sums to the target, return an empty array
+    return [];
+}
