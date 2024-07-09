@@ -1,0 +1,30 @@
+class Solution {
+
+    /**
+     * Finds the maximum amount of water that can be trapped between vertical lines.
+     *
+     * @param Integer[] $height The array representing the heights of the vertical lines.
+     * @return Integer The maximum amount of water that can be trapped.
+     */
+    function maxArea($height) {
+        $maxArea = 0;
+        $left = 0;
+        $right = count($height) - 1;
+        
+        while ($left < $right) {
+            // Calculate current area
+            $currentArea = min($height[$left], $height[$right]) * ($right - $left);
+            // Update maximum area if current area is larger
+            $maxArea = max($maxArea, $currentArea);
+            
+            // Move the pointer pointing to the shorter line inward
+            if ($height[$left] < $height[$right]) {
+                $left++;
+            } else {
+                $right--;
+            }
+        }
+        
+        return $maxArea;
+    }
+}
