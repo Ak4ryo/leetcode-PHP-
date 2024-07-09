@@ -1,0 +1,35 @@
+class Solution {
+
+    /**
+     * Converts an integer to its Roman numeral representation.
+     *
+     * @param Integer $num The input integer to convert.
+     * @return String The Roman numeral representation as a string.
+     */
+    function intToRoman($num) {
+        // Arrays to store Roman numeral values and corresponding symbols
+        $romanValues = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+        $romanSymbols = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+        
+        // Result string to accumulate Roman numeral representation
+        $result = '';
+        
+        // Index to iterate through the arrays $romanValues and $romanSymbols
+        $index = 0;
+        
+        // Iterate through the $romanValues and $romanSymbols arrays
+        while ($num > 0) {
+            // While $num is greater than or equal to the current value in $romanValues,
+            // append the corresponding symbol to $result and subtract the value from $num
+            while ($num >= $romanValues[$index]) {
+                $result .= $romanSymbols[$index];
+                $num -= $romanValues[$index];
+            }
+            // Move to the next index in the arrays
+            $index++;
+        }
+        
+        // Return the resulting Roman numeral representation
+        return $result;
+    }
+}
