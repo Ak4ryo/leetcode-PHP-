@@ -1,0 +1,44 @@
+class Solution {
+
+    /**
+     * Converts a Roman numeral string to an integer.
+     *
+     * @param String $s The Roman numeral string.
+     * @return Integer The integer representation of the Roman numeral.
+     */
+    function romanToInt($s) {
+        // Mapping of Roman numeral symbols to integer values
+        $romanToIntMap = [
+            'I' => 1,
+            'V' => 5,
+            'X' => 10,
+            'L' => 50,
+            'C' => 100,
+            'D' => 500,
+            'M' => 1000,
+        ];
+        
+        $result = 0;
+        
+        // Iterate through the Roman numeral string
+        for ($i = 0; $i < strlen($s); $i++) {
+            $currentValue = $romanToIntMap[$s[$i]];
+            
+            // Check if the current value is less than the next value
+            if ($i < strlen($s) - 1) {
+                $nextValue = $romanToIntMap[$s[$i + 1]];
+                // If current value is less than next value, it's a subtractive combination
+                if ($currentValue < $nextValue) {
+                    $result -= $currentValue;
+                } else {
+                    $result += $currentValue;
+                }
+            } else {
+                // Last character in the string
+                $result += $currentValue;
+            }
+        }
+        
+        return $result;
+    }
+}
