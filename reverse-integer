@@ -1,0 +1,40 @@
+class Solution {
+
+    /**
+     * Reverse the digits of a signed 32-bit integer.
+     *
+     * @param Integer $x The integer to reverse
+     * @return Integer The reversed integer or 0 if reversed integer overflows
+     */
+    function reverse($x) {
+        // Define constants for the integer limits in a signed 32-bit integer
+        $INT_MIN = -2147483648;
+        $INT_MAX = 2147483647;
+        
+        // Initialize variables for storing the reversed number and sign
+        $reversed = 0;
+        $negative = $x < 0;
+        
+        // Make x positive to simplify reversing the digits
+        $x = abs($x);
+        
+        // Reverse the digits by repeatedly extracting the last digit of x
+        while ($x > 0) {
+            $digit = $x % 10;
+            $reversed = $reversed * 10 + $digit;
+            $x = (int)($x / 10); // Use integer division to move to the next digit
+        }
+        
+        // If the original number was negative, make the reversed number negative
+        if ($negative) {
+            $reversed = -$reversed;
+        }
+        
+        // Check if the reversed number fits within the 32-bit signed integer range
+        if ($reversed < $INT_MIN || $reversed > $INT_MAX) {
+            return 0; // Overflow case
+        } else {
+            return $reversed;
+        }
+    }
+}
