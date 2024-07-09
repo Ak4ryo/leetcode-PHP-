@@ -1,0 +1,35 @@
+class Solution {
+
+    /**
+     * Find the length of the longest substring without repeating characters.
+     *
+     * @param String $s The input string
+     * @return Integer The length of the longest substring without repeating characters
+     */
+    function lengthOfLongestSubstring($s) {
+        // Initialize variables
+        $maxLength = 0;      // Length of the longest substring found
+        $start = 0;          // Start index of the current substring
+        $charIndexMap = [];  // Map to store the last index of each character encountered
+
+        // Loop through each character in the string
+        for ($end = 0; $end < strlen($s); $end++) {
+            $char = $s[$end];  // Current character
+
+            // If the current character is already in the map and its index is >= $start,
+            // move $start to the position right after the last occurrence of $char
+            if (isset($charIndexMap[$char])) {
+                $start = max($start, $charIndexMap[$char] + 1);
+            }
+
+            // Update the index of the current character in the map to the current position $end
+            $charIndexMap[$char] = $end;
+
+            // Calculate the length of the current substring and update $maxLength if necessary
+            $maxLength = max($maxLength, $end - $start + 1);
+        }
+
+        // Return the length of the longest substring without repeating characters
+        return $maxLength;
+    }
+}
