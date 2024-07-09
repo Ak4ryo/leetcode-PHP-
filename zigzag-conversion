@@ -1,27 +1,42 @@
 class Solution {
 
     /**
-     * @param String $s
-     * @param Integer $numRows
-     * @return String
+     * Convert the input string $s into a zigzag pattern with numRows rows.
+     *
+     * @param String $s The input string to convert
+     * @param Integer $numRows The number of rows in the zigzag pattern
+     * @return String The string in zigzag pattern
      */
     function convert($s, $numRows) {
+        // If numRows is 1 or numRows is greater than or equal to the length of $s,
+        // return $s directly since no conversion is needed.
         if ($numRows == 1 || $numRows >= strlen($s)) {
             return $s;
         }
 
+        // Create an array to store each row of the zigzag pattern
         $rows = array_fill(0, $numRows, '');
+        
+        // Initialize variables to track the current row and the direction of movement
         $currentRow = 0;
         $goingDown = false;
 
+        // Iterate through each character in $s
         for ($i = 0; $i < strlen($s); $i++) {
+            // Append the current character to the current row in the zigzag pattern
             $rows[$currentRow] .= $s[$i];
+
+            // Check if we have reached the top row or the bottom row
             if ($currentRow == 0 || $currentRow == $numRows - 1) {
+                // If so, change the direction of movement
                 $goingDown = !$goingDown;
             }
+
+            // Update currentRow based on the direction of movement
             $currentRow += $goingDown ? 1 : -1;
         }
 
+        // Combine all rows into a single string and return
         return implode('', $rows);
     }
 }
