@@ -1,0 +1,25 @@
+class Solution {
+
+    /**
+     * Checks if an integer is a palindrome.
+     *
+     * @param Integer $x The integer to check.
+     * @return Boolean True if $x is a palindrome, False otherwise.
+     */
+    function isPalindrome($x) {
+        // Convert integer to string
+        $str = (string)$x;
+        
+        // Get the length of the string
+        $length = strlen($str);
+        
+        // Iterate through the string and compare characters
+        for ($i = 0; $i < $length / 2; $i++) {
+            if ($str[$i] !== $str[$length - 1 - $i]) {
+                return false; // Characters don't match, not a palindrome
+            }
+        }
+        
+        return true; // All characters matched, it's a palindrome
+    }
+}
