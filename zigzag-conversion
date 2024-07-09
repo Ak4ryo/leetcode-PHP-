@@ -1,0 +1,38 @@
+class Solution {
+
+    /**
+     * Converts the input string into a zigzag pattern with numRows rows.
+     *
+     * @param String $s The input string.
+     * @param Integer $numRows The number of rows in the zigzag pattern.
+     * @return String The string in zigzag pattern.
+     */
+    function convert($s, $numRows) {
+        // If numRows is 1 or greater than or equal to the length of $s, return $s as it is
+        if ($numRows == 1 || $numRows >= strlen($s)) {
+            return $s;
+        }
+
+        // Initialize an array to store strings for each row
+        $rows = array_fill(0, $numRows, '');
+        $currentRow = 0; // Current row index in the zigzag pattern
+        $goingDown = false; // Flag to track direction of traversal
+
+        // Iterate through each character in the string $s
+        for ($i = 0; $i < strlen($s); $i++) {
+            // Append the current character to the current row's string
+            $rows[$currentRow] .= $s[$i];
+
+            // Check if we need to change direction
+            if ($currentRow == 0 || $currentRow == $numRows - 1) {
+                $goingDown = !$goingDown; // Reverse direction
+            }
+
+            // Move to the next row in the zigzag pattern based on the direction flag
+            $currentRow += $goingDown ? 1 : -1;
+        }
+
+        // Concatenate all rows into a single string and return
+        return implode('', $rows);
+    }
+}
