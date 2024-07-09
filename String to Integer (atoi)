@@ -1,0 +1,46 @@
+class Solution {
+
+    /**
+     * Converts a string to a 32-bit signed integer.
+     *
+     * @param String $s The input string to convert.
+     * @return Integer The converted 32-bit signed integer.
+     */
+    function myAtoi($s) {
+        $maxInt = pow(2, 31) - 1;
+        $minInt = -pow(2, 31);
+        
+        $s = trim($s); // Remove leading and trailing whitespace
+        
+        if (empty($s)) {
+            return 0; // If string is empty after trimming, return 0
+        }
+        
+        $sign = 1; // Default sign is positive
+        $i = 0;
+        $length = strlen($s);
+        
+        // Check for optional sign
+        if ($s[$i] === '+' || $s[$i] === '-') {
+            $sign = ($s[$i] === '-') ? -1 : 1;
+            $i++;
+        }
+        
+        $result = 0;
+        
+        // Process digits
+        while ($i < $length && is_numeric($s[$i])) {
+            $digit = (int)$s[$i];
+            
+            // Check for overflow
+            if ($result > $maxInt / 10 || ($result == $maxInt / 10 && $digit > 7)) {
+                return ($sign == 1) ? $maxInt : $minInt;
+            }
+            
+            $result = $result * 10 + $digit;
+            $i++;
+        }
+        
+        return $result * $sign;
+    }
+}
