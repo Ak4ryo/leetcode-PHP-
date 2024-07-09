@@ -1,0 +1,44 @@
+class Solution {
+
+    /**
+     * Adds two numbers represented by linked lists.
+     *
+     * @param ListNode $l1 The head of the first linked list representing a number.
+     * @param ListNode $l2 The head of the second linked list representing a number.
+     * @return ListNode The head of a new linked list representing the sum of the two numbers.
+     */
+    function addTwoNumbers($l1, $l2) {
+        // Initialize a new ListNode to store the result, starting with a dummy node.
+        $new_list = new ListNode(0);
+        $current = $new_list; // Pointer to the current node in the result list.
+        $carry = 0; // Initialize carry to 0 for handling sums greater than 9.
+
+        // Traverse both linked lists until both are null.
+        while ($l1 !== null || $l2 !== null) {
+            // Retrieve values from current nodes or default to 0 if the node is null.
+            $x = ($l1 !== null) ? $l1->val : 0;
+            $y = ($l2 !== null) ? $l2->val : 0;
+            
+            // Calculate sum of current digits plus carry.
+            $sum = $x + $y + $carry;
+            // Update carry for the next calculation.
+            $carry = (int)($sum / 10);
+            // Create a new node with the units place of the sum and link it to the result list.
+            $current->next = new ListNode($sum % 10);
+            // Move the pointer to the next node in the result list.
+            $current = $current->next;
+            
+            // Move to the next node in both input lists if they are not null.
+            if ($l1 !== null) $l1 = $l1->next;
+            if ($l2 !== null) $l2 = $l2->next;
+        }
+        
+        // After exiting the loop, if there's any carry left, create a new node for it.
+        if ($carry > 0) {
+            $current->next = new ListNode($carry);
+        }
+        
+        // Return the next node of the dummy node, which is the actual start of the result list.
+        return $new_list->next;
+    }
+}
