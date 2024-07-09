@@ -1,0 +1,56 @@
+class Solution {
+
+    /**
+     * Finds the longest palindrome substring in a given string.
+     *
+     * @param String $s The input string.
+     * @return String The longest palindrome substring found.
+     */
+    function longestPalindrome($s) {
+        $start = 0; // Initialize start index of the longest palindrome substring
+        $end = 0;   // Initialize end index of the longest palindrome substring
+        $length = strlen($s); // Length of the input string
+
+        // Iterate through each character in the string
+        for ($i = 0; $i < $length; $i++) {
+            // Expand around single character center (odd length palindrome)
+            $len1 = $this->expandAroundCenter($s, $i, $i);
+            // Expand around two character center (even length palindrome)
+            $len2 = $this->expandAroundCenter($s, $i, $i + 1);
+            // Get the maximum length palindrome found around current center
+            $maxLen = max($len1, $len2);
+
+            // Update start and end indices if a longer palindrome is found
+            if ($maxLen > $end - $start) {
+                $start = $i - (int)(($maxLen - 1) / 2);
+                $end = $i + (int)($maxLen / 2);
+            }
+        }
+
+        // Return the longest palindrome substring found
+        return substr($s, $start, $end - $start + 1);
+    }
+
+    /**
+     * Helper function to expand around a center and find the length of a palindrome.
+     *
+     * @param String $s The input string.
+     * @param int $left Left index of the center (can be a single character or between two characters).
+     * @param int $right Right index of the center (can be a single character or between two characters).
+     * @return int Length of the palindrome found.
+     */
+    private function expandAroundCenter($s, $left, $right) {
+        $L = $left;  // Initialize left pointer
+        $R = $right; // Initialize right pointer
+        $length = strlen($s); // Length of the input string
+
+        // Expand around the center as long as characters match and indices are within bounds
+        while ($L >= 0 && $R < $length && $s[$L] == $s[$R]) {
+            $L--; // Expand left
+            $R++; // Expand right
+        }
+
+        // Return the length of the palindrome found
+        return $R - $L - 1; // Length of the palindrome
+    }
+}
