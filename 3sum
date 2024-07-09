@@ -1,0 +1,56 @@
+class Solution {
+
+    /**
+     * Finds all unique triplets in the array nums such that nums[i] + nums[j] + nums[k] == 0.
+     *
+     * @param Integer[] $nums
+     * @return Integer[][]
+     */
+    function threeSum(array $nums): array {
+        $result = [];
+        $n = count($nums);
+        
+        // Edge case: If number of elements is less than 3, return empty result
+        if ($n < 3) {
+            return $result;
+        }
+        
+        // Sort the array
+        sort($nums);
+        
+        for ($i = 0; $i < $n - 2; $i++) {
+            // Skip duplicates
+            if ($i > 0 && $nums[$i] == $nums[$i - 1]) {
+                continue;
+            }
+            
+            $left = $i + 1;
+            $right = $n - 1;
+            
+            while ($left < $right) {
+                $sum = $nums[$i] + $nums[$left] + $nums[$right];
+                
+                if ($sum == 0) {
+                    $result[] = [$nums[$i], $nums[$left], $nums[$right]];
+                    
+                    // Skip duplicates
+                    while ($left < $right && $nums[$left] == $nums[$left + 1]) {
+                        $left++;
+                    }
+                    while ($left < $right && $nums[$right] == $nums[$right - 1]) {
+                        $right--;
+                    }
+                    
+                    $left++;
+                    $right--;
+                } elseif ($sum < 0) {
+                    $left++;
+                } else {
+                    $right--;
+                }
+            }
+        }
+        
+        return $result;
+    }
+}
