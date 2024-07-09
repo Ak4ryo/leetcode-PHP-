@@ -1,0 +1,33 @@
+class Solution {
+
+    /**
+     * Finds the longest common prefix string amongst an array of strings.
+     *
+     * @param String[] $strs Array of strings to find the common prefix.
+     * @return String The longest common prefix string.
+     */
+    function longestCommonPrefix($strs) {
+        if (empty($strs)) {
+            return "";
+        }
+        
+        // Start with the first string as the initial prefix
+        $prefix = $strs[0];
+        
+        // Iterate through the rest of the strings
+        for ($i = 1; $i < count($strs); $i++) {
+            // Compare current prefix with each string
+            while (strpos($strs[$i], $prefix) !== 0) {
+                // Reduce the current prefix by one character from the end
+                $prefix = substr($prefix, 0, strlen($prefix) - 1);
+                
+                // If prefix becomes empty, no common prefix exists
+                if (strlen($prefix) == 0) {
+                    return "";
+                }
+            }
+        }
+        
+        return $prefix;
+    }
+}
