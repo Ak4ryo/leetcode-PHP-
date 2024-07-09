@@ -1,0 +1,24 @@
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @param Integer $target
+     * @return Integer[]
+     */
+
+function twoSum($nums, $target) {
+    // Loop through each element in the array
+    for ($i = 0; $i < count($nums); $i++) {
+        // Loop through each element after the current element ($i)
+        for ($j = $i + 1; $j < count($nums); $j++) {
+            // Check if the sum of the current element and any subsequent element equals the target
+            if ($nums[$i] + $nums[$j] == $target) {
+                // Return the indices of the two elements that sum up to the target
+                return [$i, $j];
+            }
+        }
+    }
+    // If no such pair is found, return an empty array
+    return [];
+  }
+}
