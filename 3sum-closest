@@ -1,0 +1,49 @@
+class Solution {
+
+    /**
+     * Finds three integers in nums such that the sum is closest to target.
+     *
+     * @param Integer[] $nums The input array of integers.
+     * @param Integer $target The target sum.
+     * @return Integer The sum of the three integers closest to the target.
+     */
+    function threeSumClosest($nums, $target) {
+        $n = count($nums);
+        if ($n < 3) {
+            throw new InvalidArgumentException("Input array must have at least three elements.");
+        }
+        
+        // Sort the array
+        sort($nums);
+        
+        // Initialize the closest sum with a large value
+        $closestSum = $nums[0] + $nums[1] + $nums[2];
+        
+        for ($i = 0; $i < $n - 2; $i++) {
+            $left = $i + 1;
+            $right = $n - 1;
+            
+            while ($left < $right) {
+                $currentSum = $nums[$i] + $nums[$left] + $nums[$right];
+                
+                if ($currentSum == $target) {
+                    return $target; // Found the exact sum, return it
+                }
+                
+                // Update the closest sum if the current sum is closer to the target
+                if (abs($currentSum - $target) < abs($closestSum - $target)) {
+                    $closestSum = $currentSum;
+                }
+                
+                // Adjust the pointers
+                if ($currentSum < $target) {
+                    $left++;
+                } else {
+                    $right--;
+                }
+            }
+        }
+        
+        return $closestSum;
+    }
+}
