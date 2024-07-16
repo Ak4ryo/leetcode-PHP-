@@ -1,0 +1,33 @@
+
+class Solution {
+
+    /**
+     * Removes the nth node from the end of the list.
+     *
+     * @param ListNode $head
+     * @param Integer $n
+     * @return ListNode
+     */
+    function removeNthFromEnd($head, $n) {
+        $value = new ListNode(0, $head);
+        $first = $value;
+        $second = $value;
+
+        // Move first pointer n+1 steps ahead
+        for ($i = 0; $i <= $n; $i++) {
+            $first = $first->next;
+        }
+
+        // Move both pointers until first reaches the end
+        while ($first !== null) {
+            $first = $first->next;
+            $second = $second->next;
+        }
+
+        // Remove the nth node from the end
+        $second->next = $second->next->next;
+
+        // Return the new head of the list
+        return $value->next;
+    }
+}
