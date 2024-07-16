@@ -1,0 +1,32 @@
+class Solution {
+
+    /**
+     * @param String $s
+     * @return Boolean
+     */
+    function isValid($s) {
+        $stack = [];
+        $mapping = [
+            ')' => '(',
+            '}' => '{',
+            ']' => '['
+        ];
+
+        // Iterate through each character in the string
+        for ($i = 0; $i < strlen($s); $i++) {
+            $char = $s[$i];
+            
+            // If the character is a closing bracket
+            if (isset($mapping[$char])) {
+                $topElement = empty($stack) ? '#' : array_pop($stack);
+                if ($topElement != $mapping[$char]) {
+                    return false;
+                }
+            } else {
+                // It was an opening bracket, push onto the stack
+                $stack[] = $char;
+            }
+        }
+        return empty($stack);
+    }
+}
